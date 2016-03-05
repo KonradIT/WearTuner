@@ -47,6 +47,7 @@
         android:text="-10 Hz"
         android:id="@+id/minusTenHz"
         android:layout_below="@+id/textView2"
+        android:layout_alignEnd="@+id/reference"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -54,8 +55,16 @@
         android:layout_height="wrap_content"
         android:text="+10 Hz"
         android:id="@+id/plusTenHz"
-        android:layout_alignTop="@+id/minusTenHz"
+        android:layout_below="@+id/mhzFreq"
         android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/mhzFreq" />
+        android:layout_alignStart="@+id/reference" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/reference"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

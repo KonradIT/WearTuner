@@ -108,9 +108,9 @@ public class WearTuner extends Activity {
         });
     }
     void increaseBy10Hz(){
-        freqOfTone=freqOfTone+10;
+        freqOfTone=freqOfTone*10;
         seekBar = (SeekBar) findViewById(R.id.frequency_slider);
-        seekBar.setProgress(seekBar.getProgress()+10);
+        seekBar.setProgress(seekBar.getProgress()*10);
 
         final Thread thread = new Thread(new Runnable() {
             public void run() {
@@ -161,10 +161,12 @@ public class WearTuner extends Activity {
     }
 
     void playSound(){
+
         final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
                 sampleRate, AudioFormat.CHANNEL_OUT_MONO,
                 AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,
                 AudioTrack.MODE_STATIC);
+
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
     }
