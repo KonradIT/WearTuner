@@ -13,6 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,8 +24,9 @@ public class WearTuner extends Activity {
 
 
     private SeekBar seekBar;
-    private final int sampleRate = 44100;
-    private final int numSamples = 0;
+    private final int duration = 10;
+    private final int sampleRate = 8000;
+    private final int numSamples = duration * sampleRate;
     private final double sample[] = new double[numSamples];
     private double freqOfTone = 0;
 
@@ -51,6 +55,20 @@ public class WearTuner extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
+                Button minus10Hz = (Button) findViewById(R.id.minusTenHz);
+                minus10Hz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //decreaseBy10Hz();
+                    }
+                });
+                Button plus10Hz = (Button) findViewById(R.id.plusTenHz);
+                plus10Hz.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        increaseBy10Hz();
+                    }
+                });
                 seekBar = (SeekBar) findViewById(R.id.frequency_slider);
                 seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progress = 0;
@@ -59,8 +77,9 @@ public class WearTuner extends Activity {
                     public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                         progress = progresValue;
                         TextView status = (TextView)findViewById(R.id.mhzFreq);
-                        status.setText("Covered: " + progress + "/" + seekBar.getMax());
                         freqOfTone = progress*100;
+                        status.setText(freqOfTone+"mHz");
+                        // Use a new tread as this can take a while
                         final Thread thread = new Thread(new Runnable() {
                             public void run() {
                                 genTone();
@@ -88,6 +107,24 @@ public class WearTuner extends Activity {
             }
         });
     }
+    void increaseBy10Hz(){
+        freqOfTone=freqOfTone+10;
+        seekBar = (SeekBar) findViewById(R.id.frequency_slider);
+        seekBar.setProgress(seekBar.getProgress()+10);
+
+        final Thread thread = new Thread(new Runnable() {
+            public void run() {
+                genTone();
+                handler.post(new Runnable() {
+
+                    public void run() {
+                        playSound();
+                    }
+                });
+            }
+        });
+        thread.start();
+    }
     public boolean watchHasSpeaker(){
         PackageManager packageManager = this.getPackageManager();
         AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
@@ -109,13 +146,9 @@ public class WearTuner extends Activity {
         return false;
     }
     void genTone(){
-        // fill out the array
         for (int i = 0; i < numSamples; ++i) {
             sample[i] = Math.sin(2 * Math.PI * i / (sampleRate/freqOfTone));
         }
-
-        // convert to 16 bit pcm sound array
-        // assumes the sample buffer is normalised.
         int idx = 0;
         for (final double dVal : sample) {
             // scale to maximum amplitude
@@ -135,4 +168,6 @@ public class WearTuner extends Activity {
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
     }
+
+    //Code from stack overflow
 }
