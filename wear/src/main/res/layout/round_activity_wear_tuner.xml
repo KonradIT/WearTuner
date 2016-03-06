@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chernowii.weartuner.WearTuner"
-    tools:deviceIds="wear_round">
+    tools:deviceIds="wear_round"
+    android:onClick="startMusicTuner">
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -33,5 +34,13 @@
         android:id="@+id/mhzFreq"
         android:layout_below="@+id/frequency_slider"
         android:layout_toEndOf="@+id/textView3" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MUSIC TUNER"
+        android:id="@+id/musicTuner"
+        android:layout_below="@+id/mhzFreq"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioDeviceInfo;
 import android.media.AudioFormat;
@@ -139,6 +140,10 @@ public class WearTuner extends Activity {
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
     }
-
+public void startMusicTuner(View view){
+    Intent startIntent = new Intent(this, MusicTuner.class);
+    startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(startIntent);
+}
     //Code from stack overflow
 }
