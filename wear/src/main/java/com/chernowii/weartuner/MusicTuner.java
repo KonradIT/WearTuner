@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class MusicTuner extends Activity {
 
     private TextView mTextView;
+    MediaPlayer mPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,8 @@ public class MusicTuner extends Activity {
                 e_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.e_note_sound);
+                        mPlayer.stop();
+                        mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.e_note_sound);
                         mPlayer.start();
                     }
                 });
@@ -34,7 +36,8 @@ public class MusicTuner extends Activity {
                 a_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.a_note_sound);
+                        mPlayer.stop();
+                        mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.a_note_sound);
                         mPlayer.start();
                     }
                 });
@@ -43,25 +46,28 @@ public class MusicTuner extends Activity {
                 d_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.d_note_sound);
+                        mPlayer.stop();
+                        mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.d_note_sound);
                         mPlayer.start();
                     }
                 });
 
-                Button g_button = (Button) findViewById(R.id.e_note);
+                Button g_button = (Button) findViewById(R.id.g_note);
                 g_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.g_note_sound);
+                        mPlayer.stop();
+                        mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.g_note_sound);
                         mPlayer.start();
                     }
                 });
 
-                Button b_button = (Button) findViewById(R.id.e_note);
+                Button b_button = (Button) findViewById(R.id.b_note);
                 b_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.b_note_sound);
+                        mPlayer.stop();
+                        mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.b_note_sound);
                         mPlayer.start();
                     }
                 });
