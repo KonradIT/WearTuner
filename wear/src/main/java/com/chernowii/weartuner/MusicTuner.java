@@ -1,8 +1,13 @@
 package com.chernowii.weartuner;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MusicTuner extends Activity {
@@ -17,7 +22,49 @@ public class MusicTuner extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
+                Button e_button = (Button) findViewById(R.id.e_note);
+                e_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.e_note_sound);
+                        mPlayer.start();
+                    }
+                });
+                Button a_button = (Button) findViewById(R.id.a_note);
+                a_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.a_note_sound);
+                        mPlayer.start();
+                    }
+                });
+
+                Button d_button = (Button) findViewById(R.id.d_note);
+                d_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.d_note_sound);
+                        mPlayer.start();
+                    }
+                });
+
+                Button g_button = (Button) findViewById(R.id.e_note);
+                g_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.g_note_sound);
+                        mPlayer.start();
+                    }
+                });
+
+                Button b_button = (Button) findViewById(R.id.e_note);
+                b_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MediaPlayer mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.b_note_sound);
+                        mPlayer.start();
+                    }
+                });
             }
         });
     }
