@@ -34,28 +34,4 @@
         android:layout_below="@+id/frequency_slider"
         android:layout_toEndOf="@+id/textView3" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:id="@+id/reference"
-        android:layout_below="@+id/mhzFreq"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="-10 Hz"
-        android:id="@+id/minusTenHz"
-        android:layout_below="@+id/textView3"
-        android:layout_toStartOf="@+id/reference" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+10 Hz"
-        android:id="@+id/plusTenHz"
-        android:layout_alignTop="@+id/reference"
-        android:layout_toEndOf="@+id/minusTenHz" />
-
 </RelativeLayout>

@@ -33,7 +33,10 @@ public class WearTuner extends Activity {
     private final byte generatedSnd[] = new byte[2 * numSamples];
 
     Handler handler = new Handler();
-
+    final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+            sampleRate, AudioFormat.CHANNEL_OUT_MONO,
+            AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,
+            AudioTrack.MODE_STATIC);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,20 +58,7 @@ public class WearTuner extends Activity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                Button minus10Hz = (Button) findViewById(R.id.minusTenHz);
-                minus10Hz.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //decreaseBy10Hz();
-                    }
-                });
-                Button plus10Hz = (Button) findViewById(R.id.plusTenHz);
-                plus10Hz.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        increaseBy10Hz();
-                    }
-                });
+
                 seekBar = (SeekBar) findViewById(R.id.frequency_slider);
                 seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     int progress = 0;
@@ -76,9 +66,10 @@ public class WearTuner extends Activity {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progresValue, boolean fromUser) {
                         progress = progresValue;
-                        TextView status = (TextView)findViewById(R.id.mhzFreq);
-                        freqOfTone = progress*100;
-                        status.setText(freqOfTone+"mHz");
+                        TextView status = (TextView) findViewById(R.id.mhzFreq);
+                        freqOfTone = progress * 100;
+                        status.setText(freqOfTone + "mHz");
+                        audioTrack.stop();
                         // Use a new tread as this can take a while
                         final Thread thread = new Thread(new Runnable() {
                             public void run() {
@@ -107,24 +98,7 @@ public class WearTuner extends Activity {
             }
         });
     }
-    void increaseBy10Hz(){
-        freqOfTone=freqOfTone*10;
-        seekBar = (SeekBar) findViewById(R.id.frequency_slider);
-        seekBar.setProgress(seekBar.getProgress()*10);
 
-        final Thread thread = new Thread(new Runnable() {
-            public void run() {
-                genTone();
-                handler.post(new Runnable() {
-
-                    public void run() {
-                        playSound();
-                    }
-                });
-            }
-        });
-        thread.start();
-    }
     public boolean watchHasSpeaker(){
         PackageManager packageManager = this.getPackageManager();
         AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
@@ -161,11 +135,6 @@ public class WearTuner extends Activity {
     }
 
     void playSound(){
-
-        final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
-                sampleRate, AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,
-                AudioTrack.MODE_STATIC);
 
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
