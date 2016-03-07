@@ -27,7 +27,6 @@ public class MusicTuner extends Activity {
                 e_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPlayer.stop();
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.e_note_sound);
                         mPlayer.start();
                     }
@@ -36,7 +35,6 @@ public class MusicTuner extends Activity {
                 a_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPlayer.stop();
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.a_note_sound);
                         mPlayer.start();
                     }
@@ -46,7 +44,6 @@ public class MusicTuner extends Activity {
                 d_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPlayer.stop();
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.d_note_sound);
                         mPlayer.start();
                     }
@@ -56,7 +53,7 @@ public class MusicTuner extends Activity {
                 g_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPlayer.stop();
+
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.g_note_sound);
                         mPlayer.start();
                     }
@@ -66,7 +63,6 @@ public class MusicTuner extends Activity {
                 b_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mPlayer.stop();
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.b_note_sound);
                         mPlayer.start();
                     }
