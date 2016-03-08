@@ -14,7 +14,7 @@ public class MusicTuner extends Activity {
 
     private TextView mTextView;
     MediaPlayer mPlayer;
-
+    boolean isPlaying;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,16 +27,24 @@ public class MusicTuner extends Activity {
                 e_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(isPlaying){
+                            mPlayer.stop();
+                        }
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.e_note_sound);
                         mPlayer.start();
+                        isPlaying=true;
                     }
                 });
                 Button a_button = (Button) findViewById(R.id.a_note);
                 a_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(isPlaying){
+                            mPlayer.stop();
+                        }
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.a_note_sound);
                         mPlayer.start();
+                        isPlaying=true;
                     }
                 });
 
@@ -44,8 +52,12 @@ public class MusicTuner extends Activity {
                 d_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(isPlaying){
+                            mPlayer.stop();
+                        }
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.d_note_sound);
                         mPlayer.start();
+                        isPlaying=true;
                     }
                 });
 
@@ -53,9 +65,12 @@ public class MusicTuner extends Activity {
                 g_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        if(isPlaying){
+                            mPlayer.stop();
+                        }
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.g_note_sound);
                         mPlayer.start();
+                        isPlaying=true;
                     }
                 });
 
@@ -63,8 +78,12 @@ public class MusicTuner extends Activity {
                 b_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if(isPlaying){
+                            mPlayer.stop();
+                        }
                         mPlayer = MediaPlayer.create(MusicTuner.this, R.raw.b_note_sound);
                         mPlayer.start();
+                        isPlaying=true;
                     }
                 });
             }

@@ -33,7 +33,11 @@ public class WearTuner extends Activity {
 
     private final byte generatedSnd[] = new byte[2 * numSamples];
 
-    Handler handler = new Handler();
+    boolean isPlaying = false;
+    public final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
+            sampleRate, AudioFormat.CHANNEL_OUT_MONO,
+            AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,
+            AudioTrack.MODE_STATIC);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,10 @@ public class WearTuner extends Activity {
                         TextView status = (TextView) findViewById(R.id.mhzFreq);
                         freqOfTone = progress * 100;
                         status.setText(freqOfTone + "mHz");
-                        // Use a new tread as this can take a while
+                        if(isPlaying){
+                            audioTrack.stop();
+                        }
+
                         genTone();
                     }
 
@@ -106,10 +113,7 @@ public class WearTuner extends Activity {
         return false;
     }
     void genTone(){
-        final AudioTrack audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC,
-                sampleRate, AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, generatedSnd.length,
-                AudioTrack.MODE_STATIC);
+
         for (int i = 0; i < numSamples; ++i) {
             sample[i] = Math.sin(2 * Math.PI * i / (sampleRate/freqOfTone));
         }
@@ -122,9 +126,7 @@ public class WearTuner extends Activity {
             generatedSnd[idx++] = (byte) ((val & 0xff00) >>> 8);
 
         }
-        if (audioTrack.getPlayState() == 3){
-            audioTrack.stop();
-        }
+        isPlaying = true;
         audioTrack.write(generatedSnd, 0, generatedSnd.length);
         audioTrack.play();
     }
